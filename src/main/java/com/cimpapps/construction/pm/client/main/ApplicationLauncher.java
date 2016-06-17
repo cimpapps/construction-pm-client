@@ -1,6 +1,10 @@
 
 package com.cimpapps.construction.pm.client.main;
 
-public class ApplicationLauncher {
+import com.cimpapps.construction.pm.client.gui.LogInFrame;
 
+public class ApplicationLauncher {
+    public static void main(String[] args) {
+        new LogInFrame();
+    }
 }
