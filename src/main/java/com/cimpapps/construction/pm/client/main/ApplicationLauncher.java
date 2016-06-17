@@ -5,6 +5,6 @@ import com.cimpapps.construction.pm.client.gui.LogInFrame;
 
 public class ApplicationLauncher {
     public static void main(String[] args) {
-        new LogInFrame();
+        LogInFrame logInFrame = new LogInFrame();
     }
 }

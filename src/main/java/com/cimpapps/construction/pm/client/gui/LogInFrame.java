@@ -31,7 +31,6 @@ public class LogInFrame extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         buttonLogIn = new javax.swing.JButton();
-        checkAdmin = new javax.swing.JCheckBox();
         buttonRegister = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -40,9 +39,7 @@ public class LogInFrame extends javax.swing.JFrame {
 
         jLabel2.setText("password:");
 
-        buttonLogIn.setText("Log in");
-
-        checkAdmin.setText("Administrator");
+        buttonLogIn.setText("Log In");
 
         buttonRegister.setText("Register");
 
@@ -51,16 +48,11 @@ public class LogInFrame extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(27, 27, 27)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(checkAdmin)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(buttonRegister)
@@ -85,7 +77,6 @@ public class LogInFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(buttonLogIn)
-                    .addComponent(checkAdmin)
                     .addComponent(buttonRegister))
                 .addContainerGap())
         );
@@ -98,7 +89,6 @@ public class LogInFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonLogIn;
     private javax.swing.JButton buttonRegister;
-    private javax.swing.JCheckBox checkAdmin;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPasswordField passwordPasswordField;
@@ -107,6 +97,7 @@ public class LogInFrame extends javax.swing.JFrame {
 
     private void addActionListeners() {
         buttonLogIn.addActionListener(ev -> logIn());
+        buttonRegister.addActionListener(ev -> register());
     }
 
     private void logIn() {
@@ -121,7 +112,7 @@ public class LogInFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "FAIL!!!!!!!!!!!!!!!!!!!!!!!!");
     }
     
-    private void regiser(){
+    private void registerUser(){
         String username = textFieldUserName.getText();
         String password = String.valueOf( passwordPasswordField.getPassword() );
         boolean result = UserController.getInstance().registerUser(username, password);
@@ -130,6 +121,10 @@ public class LogInFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "YOU REGISTERD USER");
         else
             JOptionPane.showMessageDialog(this, "FAIL!!!!!!!!!!!!!!!!!!!!!!!!");
+    }
+    
+    private void register(){
+        new RegisterFrame();
     }
 
 }
