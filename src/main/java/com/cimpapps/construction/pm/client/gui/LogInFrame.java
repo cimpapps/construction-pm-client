@@ -112,16 +112,6 @@ public class LogInFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "FAIL!!!!!!!!!!!!!!!!!!!!!!!!");
     }
     
-    private void registerUser(){
-        String username = textFieldUserName.getText();
-        String password = String.valueOf( passwordPasswordField.getPassword() );
-        boolean result = UserController.getInstance().registerUser(username, password);
-        
-        if(result)
-            JOptionPane.showMessageDialog(this, "YOU REGISTERD USER");
-        else
-            JOptionPane.showMessageDialog(this, "FAIL!!!!!!!!!!!!!!!!!!!!!!!!");
-    }
     
     private void register(){
         new RegisterFrame();
