@@ -23,6 +23,7 @@ public class UserController {
             userService = (AbstractUserRemote) registry.lookup("user");
         } catch (RemoteException | NotBoundException ex) {
             Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         }
         
     }

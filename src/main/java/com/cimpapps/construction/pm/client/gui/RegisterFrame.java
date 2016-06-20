@@ -2,9 +2,12 @@
 
 package com.cimpapps.construction.pm.client.gui;
 
+import com.cimpapps.construction.pm.client.controllers.EmployeeController;
 import com.cimpapps.construction.pm.client.controllers.PositionController;
 import com.cimpapps.construction.pm.client.controllers.UserController;
+import construction.pm.lib.dto.EmployeeDTO;
 import construction.pm.lib.dto.EmployeePositionDTO;
+import construction.pm.lib.dto.UserDTO;
 import java.util.List;
 import javax.swing.ComboBoxModel;
 import javax.swing.JOptionPane;
@@ -140,7 +143,9 @@ public class RegisterFrame extends javax.swing.JFrame {
     private javax.swing.JTextField usernameTF;
     // End of variables declaration//GEN-END:variables
 
-    private void addActionListeners() {}
+    private void addActionListeners() {
+        registerButton.addActionListener(ev -> registerEmployee());
+    }
 
     private void setComboBoxData() {
         positionComboBox.removeAllItems();
@@ -149,16 +154,26 @@ public class RegisterFrame extends javax.swing.JFrame {
     }
     
     
-    private void registerUser(){
+    private UserDTO registerUser(){
         String username = usernameTF.getText();
         String password = String.valueOf( passwordPwdF.getPassword() );
         boolean result = UserController.getInstance().registerUser(username, password);
         
-        if(result)
-            JOptionPane.showMessageDialog(this, "YOU REGISTERD USER");
-        else
-            JOptionPane.showMessageDialog(this, "FAIL!!!!!!!!!!!!!!!!!!!!!!!!");
+        return UserController.getInstance().logIn(username, password);
     }
 
+    private void registerEmployee(){
+        UserDTO user = registerUser();
+        EmployeePositionDTO position = (EmployeePositionDTO) positionComboBox.getSelectedItem();
+        EmployeeDTO employee = new EmployeeDTO();
+        employee.setUsersId(user);
+        employee.setEmployeePositionsId(position);
+        employee.setFirstName(firstNameTF.getText());
+        employee.setLastName(lastNameTF.getText());
+        employee.setEmail(emailTF.getText());
+        
+        EmployeeController.getInstance().registerEmployee(employee);
+        dispose();
+    }
 
 }

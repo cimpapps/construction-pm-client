@@ -107,7 +107,8 @@ public class LogInFrame extends javax.swing.JFrame {
         
         if (user != null)
         {
-            JOptionPane.showMessageDialog(this, "YOU LOGGED IN!");
+            dispose();
+            new ProjectFrame(user);
         }else
             JOptionPane.showMessageDialog(this, "FAIL!!!!!!!!!!!!!!!!!!!!!!!!");
     }
