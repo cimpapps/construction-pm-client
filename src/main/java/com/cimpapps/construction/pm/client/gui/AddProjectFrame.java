@@ -5,8 +5,11 @@
  */
 package com.cimpapps.construction.pm.client.gui;
 
+import construction.pm.lib.dto.ProjectDTO;
+import construction.pm.lib.dto.ProjectLayerDTO;
 import java.awt.Frame;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 /**
  *
@@ -14,13 +17,12 @@ import java.awt.event.ActionListener;
  */
 public class AddProjectFrame extends javax.swing.JDialog {
 
-    /**
-     * Creates new form AddProjectFrame
-     */
+    ProjectDTO project;
+    
     public AddProjectFrame(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        
+        project = new ProjectDTO();
         addActionListeners();
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setLocationRelativeTo(getParent());
@@ -147,6 +149,7 @@ public class AddProjectFrame extends javax.swing.JDialog {
 
     private void openEditLayers() {
         int rows = jComboBox1.getSelectedIndex()+1;
-        new EditProjectLayers((Frame) getParent(), true, rows);
+        project.setProjectLayerCollection(new ArrayList<ProjectLayerDTO>());
+        new EditProjectLayers((Frame) getParent(), true, rows, project);
     }
 }

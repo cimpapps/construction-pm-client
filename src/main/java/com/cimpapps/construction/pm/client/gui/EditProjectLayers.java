@@ -5,9 +5,16 @@
  */
 package com.cimpapps.construction.pm.client.gui;
 
+import construction.pm.lib.dto.ProjectDTO;
+import construction.pm.lib.dto.ProjectLayerDTO;
+import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 /**
@@ -20,29 +27,44 @@ public class EditProjectLayers extends javax.swing.JDialog {
      * Creates new form EditProjectLayers
      */
     JButton addLayersToProjectButton;
-    
+    Collection<ProjectLayerDTO> layers;
+    List<JTextField> textFields = new ArrayList<>();
+
     public EditProjectLayers(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+
     }
-    
-    public EditProjectLayers(java.awt.Frame parent, boolean modal, int rows){
+
+    public EditProjectLayers(java.awt.Frame parent, boolean modal, int rows, ProjectDTO project) {
         this(parent, modal);
-        setLayout(new GridLayout(rows, 2));
-        
+        layers = project.getProjectLayerCollection();
+
+        setLayout(new FlowLayout());
+        addComponentsToPanel(rows);
+        addActionListeners();
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setLocationRelativeTo(getParent());
-        
-        for (int i = 0; i < rows; i++) {
-            add(new JLabel("Story:    "));
-            add(new JTextField(""));
-            
+        pack();
+        setResizable(false);
+        setVisible(true);
+
+    }
+
+    public void addComponentsToPanel(int rows) {
+        JPanel layersPanel = new JPanel();
+        layersPanel.setLayout(new GridLayout(rows, 2));
+
+        for (int i = 1; i <= rows; i++) {
+            layersPanel.add(new JLabel("Story " + i + ":    "));
+            JTextField text = new JTextField("");
+            layersPanel.add(text);
+            textFields.add(text);
         }
+        add(layersPanel);
         addLayersToProjectButton = new JButton("Add Layers");
         add(addLayersToProjectButton);
-        pack();
-        setVisible(true);
-        
+
     }
 
     @SuppressWarnings("unchecked")
@@ -65,8 +87,19 @@ public class EditProjectLayers extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    
+    private void addActionListeners() {
+        addLayersToProjectButton.addActionListener(ev -> addLayersToProject());
+    }
 
+    private void addLayersToProject() {
+        textFields.forEach(this :: addSingleLayerToProject);
+    }
+
+    private void addSingleLayerToProject(JTextField t) {
+        ProjectLayerDTO layer = new ProjectLayerDTO();
+        layer.setName(t.getText().trim());
+        layers.add(layer);
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
 }
