@@ -12,6 +12,7 @@ public class ProjectFrame extends javax.swing.JFrame {
     public ProjectFrame() {
         initComponents();
         
+        addActionListeners();
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(true);
         setLocationRelativeTo(getParent());
@@ -181,5 +182,13 @@ public class ProjectFrame extends javax.swing.JFrame {
     private javax.swing.JMenu menuFile;
     private javax.swing.JMenuItem menuItemAddProject;
     // End of variables declaration//GEN-END:variables
+
+    private void addActionListeners() {
+        menuItemAddProject.addActionListener(ev -> openAddProjectDialog());
+    }
+
+    private void openAddProjectDialog() {
+        new AddProjectFrame(this, true);
+    }
 
 }
