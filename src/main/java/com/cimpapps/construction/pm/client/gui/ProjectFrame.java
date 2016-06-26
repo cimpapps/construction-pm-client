@@ -2,16 +2,24 @@
 
 package com.cimpapps.construction.pm.client.gui;
 
+import com.cimpapps.construction.pm.client.controllers.ProjectController;
+import construction.pm.lib.dto.ProjectDTO;
+import construction.pm.lib.dto.ProjectLayerDTO;
 import construction.pm.lib.dto.UserDTO;
+import java.util.List;
+import javax.swing.ComboBoxModel;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 
 
 public class ProjectFrame extends javax.swing.JFrame {
 
     private UserDTO user;
-
+    
     public ProjectFrame() {
         initComponents();
-        
+        displayProjects();
+        displayLayers();
         addActionListeners();
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(true);
@@ -49,19 +57,15 @@ public class ProjectFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        comboProject.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         jLabel1.setText("Project:");
 
         jLabel2.setText("Layer:");
 
-        comboLayers.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jRadioButton1.setText("Show all drawings");
 
-        jRadioButton1.setText("Show all");
+        jRadioButton2.setText("Show all drawings that didn't start");
 
-        jRadioButton2.setText("Show all with no employee assigned");
-
-        jRadioButton3.setText("jRadioButton3");
+        jRadioButton3.setText("Show all drawings that started");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -166,8 +170,8 @@ public class ProjectFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JComboBox<String> comboLayers;
-    private javax.swing.JComboBox<String> comboProject;
+    private javax.swing.JComboBox<ProjectLayerDTO> comboLayers;
+    private javax.swing.JComboBox<ProjectDTO> comboProject;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JMenuBar jMenuBar1;
@@ -185,10 +189,30 @@ public class ProjectFrame extends javax.swing.JFrame {
 
     private void addActionListeners() {
         menuItemAddProject.addActionListener(ev -> openAddProjectDialog());
+        comboProject.addActionListener(ev->displayLayers());
     }
 
-    private void openAddProjectDialog() {
+    private void openAddProjectDialog() { 
         new AddProjectFrame(this, true);
+        displayProjects();
+        displayLayers();
+    }
+
+    private void displayProjects() {
+        comboProject.removeAllItems();
+        List<ProjectDTO> projects = ProjectController.getInstance().getAllProjects();
+        
+        projects.forEach(comboProject :: addItem);
+    }
+
+    private void displayLayers() {
+        comboLayers.removeAllItems();
+        ProjectDTO project = (ProjectDTO) comboProject.getModel().getSelectedItem();
+        
+        List<ProjectLayerDTO> layers = ProjectController.getInstance().getProjectLayer(project);
+        
+        if(layers!=null)
+            layers.forEach(comboLayers :: addItem);
     }
 
 }

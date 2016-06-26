@@ -5,11 +5,12 @@
  */
 package com.cimpapps.construction.pm.client.gui;
 
+import com.cimpapps.construction.pm.client.controllers.ProjectController;
 import construction.pm.lib.dto.ProjectDTO;
 import construction.pm.lib.dto.ProjectLayerDTO;
 import java.awt.Frame;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  *
@@ -18,6 +19,7 @@ import java.util.ArrayList;
 public class AddProjectFrame extends javax.swing.JDialog {
 
     ProjectDTO project;
+    
     
     public AddProjectFrame(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -38,11 +40,14 @@ public class AddProjectFrame extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTextField1 = new javax.swing.JTextField();
+        textProject = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
         buttonEditLayer = new javax.swing.JButton();
+        buttonAddProject = new javax.swing.JButton();
+        textId = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -54,6 +59,10 @@ public class AddProjectFrame extends javax.swing.JDialog {
 
         buttonEditLayer.setText("Edit layers...");
 
+        buttonAddProject.setText("Add Project");
+
+        jLabel3.setText("Project id:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -61,33 +70,43 @@ public class AddProjectFrame extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(18, 18, 18))
+                    .addComponent(buttonAddProject, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(34, 34, 34)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(buttonEditLayer)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLabel3)))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(textProject, javax.swing.GroupLayout.DEFAULT_SIZE, 189, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(buttonEditLayer))
+                            .addComponent(textId))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(26, 26, 26)
+                .addGap(25, 25, 25)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(textId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(textProject, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(buttonEditLayer))
-                .addContainerGap(135, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                .addComponent(buttonAddProject, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
@@ -136,20 +155,37 @@ public class AddProjectFrame extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton buttonAddProject;
     private javax.swing.JButton buttonEditLayer;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JTextField textId;
+    private javax.swing.JTextField textProject;
     // End of variables declaration//GEN-END:variables
 
     private void addActionListeners() {
         buttonEditLayer.addActionListener(ev -> openEditLayers());
+        buttonAddProject.addActionListener(ev -> addProject());
     }
 
     private void openEditLayers() {
         int rows = jComboBox1.getSelectedIndex()+1;
         project.setProjectLayerCollection(new ArrayList<ProjectLayerDTO>());
         new EditProjectLayers((Frame) getParent(), true, rows, project);
+    }
+
+    private void addProject() {
+        Collection<ProjectLayerDTO> layers = project.getProjectLayerCollection();
+        project.setProjectLayerCollection(null);
+        int id = Integer.valueOf(textId.getText());
+        project.setId(id);
+        String name = textProject.getText();
+        project.setName(name);
+        ProjectController.getInstance().addProject(project);
+        layers.forEach(ProjectController.getInstance() :: addLayerToProject);
+        dispose();
+        
     }
 }

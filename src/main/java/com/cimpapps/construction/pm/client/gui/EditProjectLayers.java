@@ -29,6 +29,7 @@ public class EditProjectLayers extends javax.swing.JDialog {
     JButton addLayersToProjectButton;
     Collection<ProjectLayerDTO> layers;
     List<JTextField> textFields = new ArrayList<>();
+    ProjectDTO project;
 
     public EditProjectLayers(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -38,6 +39,7 @@ public class EditProjectLayers extends javax.swing.JDialog {
 
     public EditProjectLayers(java.awt.Frame parent, boolean modal, int rows, ProjectDTO project) {
         this(parent, modal);
+        this.project = project;
         layers = project.getProjectLayerCollection();
 
         setLayout(new FlowLayout());
@@ -93,10 +95,12 @@ public class EditProjectLayers extends javax.swing.JDialog {
 
     private void addLayersToProject() {
         textFields.forEach(this :: addSingleLayerToProject);
+        dispose();
     }
 
     private void addSingleLayerToProject(JTextField t) {
         ProjectLayerDTO layer = new ProjectLayerDTO();
+        layer.setProjectsId(project);
         layer.setName(t.getText().trim());
         layers.add(layer);
     }
