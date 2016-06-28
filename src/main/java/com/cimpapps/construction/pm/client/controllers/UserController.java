@@ -1,7 +1,9 @@
 package com.cimpapps.construction.pm.client.controllers;
 
+
 import construction.pm.lib.dto.UserDTO;
 import construction.pm.lib.rmi.AbstractUserRemote;
+import construction.pm.lib.rmi.constants.SocketConstants;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -19,7 +21,7 @@ public class UserController {
     
     private UserController() {
         try {
-            registry = LocateRegistry.getRegistry("localhost", 4334);
+            registry = LocateRegistry.getRegistry(SocketConstants.HOST, SocketConstants.PORT);
             userService = (AbstractUserRemote) registry.lookup("user");
         } catch (RemoteException | NotBoundException ex) {
             Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);

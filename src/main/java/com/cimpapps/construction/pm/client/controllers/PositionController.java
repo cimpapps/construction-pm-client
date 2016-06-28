@@ -3,6 +3,7 @@ package com.cimpapps.construction.pm.client.controllers;
 
 import construction.pm.lib.dto.EmployeePositionDTO;
 import construction.pm.lib.rmi.AbstractEmployeePositionRemote;
+import construction.pm.lib.rmi.constants.SocketConstants;
 import java.rmi.AccessException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -21,7 +22,7 @@ public class PositionController {
     
     private PositionController(){
         try {
-            registry = LocateRegistry.getRegistry("localhost", 4334);
+            registry = LocateRegistry.getRegistry(SocketConstants.HOST, SocketConstants.PORT);
             service =  (AbstractEmployeePositionRemote) registry.lookup("employeePosition");
         } catch (RemoteException | NotBoundException ex) {
             Logger.getLogger(PositionController.class.getName()).log(Level.SEVERE, null, ex);
