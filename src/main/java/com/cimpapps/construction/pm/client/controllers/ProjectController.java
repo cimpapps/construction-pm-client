@@ -4,6 +4,7 @@ import construction.pm.lib.dto.ProjectDTO;
 import construction.pm.lib.dto.ProjectLayerDTO;
 import construction.pm.lib.rmi.AbstractLayersRemote;
 import construction.pm.lib.rmi.AbstractProjectRemote;
+import construction.pm.lib.rmi.constants.SocketConstants;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -22,7 +23,7 @@ public class ProjectController {
     private ProjectController() {
         try {
 
-            registry = LocateRegistry.getRegistry("localhost", 4334);
+            registry = LocateRegistry.getRegistry(SocketConstants.HOST, SocketConstants.PORT);
             projectRemote = (AbstractProjectRemote) registry.lookup("project");
             layerRemote = (AbstractLayersRemote) registry.lookup("layer");
 

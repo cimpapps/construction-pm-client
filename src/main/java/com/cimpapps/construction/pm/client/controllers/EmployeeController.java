@@ -2,6 +2,7 @@ package com.cimpapps.construction.pm.client.controllers;
 
 import construction.pm.lib.dto.EmployeeDTO;
 import construction.pm.lib.rmi.AbstractEmployeeRemote;
+import construction.pm.lib.rmi.constants.SocketConstants;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -16,7 +17,7 @@ public class EmployeeController {
 
     private EmployeeController() {
         try {
-            registry = LocateRegistry.getRegistry("localhost", 4334);
+            registry = LocateRegistry.getRegistry(SocketConstants.HOST, SocketConstants.PORT);
             employeeService = (AbstractEmployeeRemote) registry.lookup("employee");
         } catch (Exception ex) {
             Logger.getLogger(EmployeeController.class.getName()).log(Level.SEVERE, null, ex);
