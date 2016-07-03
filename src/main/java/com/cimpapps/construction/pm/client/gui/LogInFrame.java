@@ -1,25 +1,28 @@
-
-
 package com.cimpapps.construction.pm.client.gui;
 
 import com.cimpapps.construction.pm.client.controllers.UserController;
 import construction.pm.lib.dto.UserDTO;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 
 public class LogInFrame extends javax.swing.JFrame {
 
-    /** Creates new form LogInFrame */
+    /**
+     * Creates new form LogInFrame
+     */
     public LogInFrame() {
         initComponents();
-        
+
         addActionListeners();
-        
+        passwordPasswordField.setFocusable(true);
+
         setResizable(false);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setVisible(true);
         setLocationRelativeTo(null);
-        
+
     }
 
     @SuppressWarnings("unchecked")
@@ -84,7 +87,6 @@ public class LogInFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonLogIn;
@@ -98,23 +100,32 @@ public class LogInFrame extends javax.swing.JFrame {
     private void addActionListeners() {
         buttonLogIn.addActionListener(ev -> logIn());
         buttonRegister.addActionListener(ev -> register());
+        passwordPasswordField.setFocusable(true);
+        passwordPasswordField.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                if(e.getKeyChar() == KeyEvent.VK_ENTER)
+                    logIn();
+            }
+            
+            
+        });
     }
 
     private void logIn() {
         String username = textFieldUserName.getText();
-        String password = String.valueOf( passwordPasswordField.getPassword() );
+        String password = String.valueOf(passwordPasswordField.getPassword());
         UserDTO user = UserController.getInstance().logIn(username, password);
-        
-        if (user != null)
-        {
+
+        if (user != null) {
             dispose();
             new ProjectFrame(user);
-        }else
+        } else {
             JOptionPane.showMessageDialog(this, "FAIL!!!!!!!!!!!!!!!!!!!!!!!!");
+        }
     }
-    
-    
-    private void register(){
+
+    private void register() {
         new RegisterFrame();
     }
 
